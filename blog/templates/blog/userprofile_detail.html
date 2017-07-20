@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<script src="{% static 'js/base.js' %}"></script>
+
+
+<!--made by vipul mirajkar thevipulm.appspot.com-->
+<h1>
+  <a href="" class="typewrite" data-period="2000" data-type='[ "Hi," , "I am {{ userprofile.first_name }}", "{{ userprofile.desciption }}", "Hope You are having fun on VisDom." ]'>
+    <span class="wrap"></span>
+  </a>
+</h1>
+
+
+<div style="margin-left:20px;margin-top:20px">
+    <h4>Blogs</h4>
+<div>
+
+
+
+{% for blog in userprofile.blog_set.all  %}
+<li><a style="color: #FFF;" href="{% url 'blog-detail' blog.pk %}">{{blog}}</a> </li>
+  
+{% endfor %}
+
+  </div>
+{% endblock %}

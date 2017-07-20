@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1 style="font: serif;"
+	style="color: #777;"> VisDom Blog</h1>
+
+	{% if blog_list %}
+    <ul>
+
+      {% for blog in blog_list %}
+<div class="col-sm-12">
+      
+<div class="card card-inverse" style="background-color: #e8e4d7; border-color: #333; margin-bottom: 40px;">
+  <div class="card-block">
+    <h3 class="card-title" style="color: #000">{{ blog.title }} <small style="font-size: 15px"><a href="{% url 'user-detail' blog.author.pk%}"> {{blog.author}}</a></small> <small style="font-size: 10px">{{ blog.timestamp | timesince}} ago</small></h3>
+    <p class="card-text" style="color: #000;"> {{ blog.content|truncatechars:40}}</p>
+    <a href="{% url 'blog-detail' blog.pk %}" class="btn btn-primary">Read More</a>
+  </div>
+</div>
+      </div>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+    
+      <p>Stay Tuned We are Coming Up with Some Amazing Content</p>
+    {% endif %}       
+{% endblock %}
+
+
+

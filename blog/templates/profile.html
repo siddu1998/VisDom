@@ -1,0 +1,48 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+
+
+
+
+<h1>Profile<small style="font-size: 14px"> <a href="{% url 'edit_profile'%}"> Edit Account Settings</a>
+|<a href="{% url 'edit_user_profile'%}"> Edit Profile data</a></small></h1>
+
+ 
+
+<hr>
+
+<div>
+<pre><h6>You can call me:</h6> {{ user.userprofile.last_name}} {{ user.userprofile.first_name}} </pre>
+<pre><h6>email me at:</h6> {{ user.email }}</pre>
+</div>
+
+
+<h6>Know Me Better</h6>
+<pre>{{ user.userprofile.desciption }}</pre>
+
+
+<div>
+<h1>My Work</h1>
+{% for blog in user.userprofile.blog_set.all  %}
+
+	
+	<div class="container">
+		<a href="{% url 'blog-detail' blog.pk  %}">{{blog}}</a>
+		<div > 
+ 		<a class="btn btn-warning" style="color: white" href="{% url 'update' blog.pk %}">Edit</a>
+ 		<a  class="btn btn-danger" style="color: white" href="{% url 'delete' blog.pk %}"> Delete</a>
+ 		
+ 		</div>
+ 	<div>
+ </div>
+ 	</div>
+
+{% endfor %}
+  </div>
+
+
+
+           
+{% endblock %}

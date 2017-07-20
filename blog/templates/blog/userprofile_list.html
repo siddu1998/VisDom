@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1 style="font: serif;"
+	style="color: #777;"> Your Best Writers</h1>
+
+	{% if userprofile_list %}
+    <ul>
+
+      {% for user in userprofile_list %}
+      <li>
+      <div>
+        <a href="{{ user.get_absolute_url }}" >{% if user.first_name %} {{ user.first_name }} {{ user.last_name }} {% endif%} </a> 
+      </div>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>These are Super Cool Writers</p>
+    {% endif %}       
+{% endblock %}
