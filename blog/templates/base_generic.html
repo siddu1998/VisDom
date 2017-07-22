@@ -30,17 +30,16 @@
   
 </head>
 
-<body>
+<body >
 
 
-<div style="background-color:orange ;height: 100px" class="w3-container top row" >
+<header style="background-color:orange ;height: 100px" class="w3-container top row" >
   <div class="col-sm-2 row">
       <img src="https://i.stack.imgur.com/cmkKO.png"  width="100%" height="83px%">
      </div>
 <p style="color: white; font-size: 70px;margin-left: 10px">VisDom</p>
  
-
-</div>
+</header>
 
   <div class="container-fluid">
 
@@ -54,9 +53,19 @@
           <div><a style="margin-top:10px;width:100%"  class="btn btn-warning transparent" href="{% url 'user'%}">Our Top Writers</a></div>
           <div><a style="margin-top:10px;width:100%"  class="btn btn-warning transparent" href="{% url 'profile' %}">My Account</a></div>
           <div><a style="margin-top:10px;width:100%"  class="btn btn-warning transparent" href="{% url 'create' %}">Write</a></div>
-          
+          <div><a style="margin-top:10px;width:100%"  class="btn btn-warning transparent" href="{% url 'shop' %}">Shopping</a></div>   
+          <div><a style="margin-top:10px;width:100%"  class="btn btn-warning transparent" href="#">Carrear and Guidence</a></div>   
+
+
+
+
     {% if user.is_authenticated %}
-    
+                    <button class="btn-warning" style="margin-top:10px;width:100%" onclick="alert('{% for cart in user.cart_set.all  %}{{ cart.product }} \n {% endfor %} ')">My Basket</button>
+
+
+
+
+
                      <div>User: {{ user.get_username }}</div>
                      <div><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></div>   
                    {% else %}
@@ -67,7 +76,7 @@
       </div>
      {% endblock %}
       </div>
-      <div class="col-sm-9 ">
+      <div class="col-sm-10 ">
       {% block content %}{% endblock %}
       </div>
     </div>

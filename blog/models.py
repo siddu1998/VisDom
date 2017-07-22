@@ -26,8 +26,6 @@ def create_profile(sender, **kwargs):
 post_save.connect(create_profile,sender=User)
 
 
-
-
 class Item(models.Model):
 	product=models.CharField(max_length=200)
 	image=models.FileField(null=True,blank=True)
@@ -36,8 +34,6 @@ class Item(models.Model):
 	
 	def __str__(self):
 		return self.product
-
-
 
 
 class Cart(models.Model):
@@ -49,7 +45,7 @@ class Cart(models.Model):
 
 
 
-
+	
 class Blog(models.Model):
 	title=models.CharField(max_length=200)
 
@@ -73,15 +69,10 @@ class Blog(models.Model):
 		return (self.title)
 
 
-
-
 class BlogComment(models.Model):
-    """
-    Model representing a comment against a blog post.
-    """
+    
     description = models.TextField(max_length=1000, help_text="Enter comment about blog here.")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-      # Foreign Key used because BlogComment can only have one author/User, but users can have multiple comments
     post_date = models.DateTimeField(auto_now_add=True)
     blog= models.ForeignKey(Blog, on_delete=models.CASCADE)
     
@@ -89,10 +80,16 @@ class BlogComment(models.Model):
         ordering = ["post_date"]
 
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return(self.blog.title)
 
+class ItemComment(models.Model):
 
+    description = models.TextField(max_length=1000, help_text="Enter Review Here")
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    post_date = models.DateTimeField(auto_now_add=True)
+    item= models.ForeignKey(Item, on_delete=models.CASCADE)
+    class Meta:
+        ordering = ["post_date"]
 
+    def __str__(self):
+        return(self.item.product)    

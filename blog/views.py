@@ -34,6 +34,13 @@ class BlogListView(generic.ListView):
 	model=Blog
 	paginate_by = 10
 
+class ItemListView(generic.ListView):
+	model=Item
+
+class ItemDetailView(generic.DetailView):
+	model=Item
+
+
 
 
 class BlogDetailView(LoginRequiredMixin,generic.DetailView):
@@ -61,6 +68,51 @@ class BlogCommentCreate(LoginRequiredMixin, generic.CreateView):
 
 
 
+
+class ItemCommentCreate(LoginRequiredMixin, generic.CreateView):
+    model = ItemComment
+    fields = ['description',]
+
+    def get_context_data(self, **kwargs):
+        context = super(ItemCommentCreate, self).get_context_data(**kwargs)
+        context['item'] = get_object_or_404(Item, pk = self.kwargs['pk'])
+        return context
+        
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.item=get_object_or_404(Item, pk = self.kwargs['pk'])
+        return super(ItemCommentCreate, self).form_valid(form)
+
+    def get_success_url(self): 
+        return reverse('item-detail', kwargs={'pk': self.kwargs['pk'],})
+
+
+
+
+
+
+
+
+class CartCreate(LoginRequiredMixin,generic.CreateView):
+	model=Cart
+	fields=[]
+	def get_context_data(self,**kwargs):
+		context=super(CartCreate,self).get_context_data(**kwargs)
+		context['product']=get_object_or_404(Item,pk=self.kwargs['pk'])
+		context['user']=self.request.user
+		return context
+	def form_valid(self,form):
+		form.instance.user=self.request.user
+		form.instance.product=get_object_or_404(Item,pk=self.kwargs['pk'])
+		return super(CartCreate,self).form_valid(form)
+	def get_success_url(self):
+		return reverse('item-detail',kwargs={'pk':self.kwargs['pk']})
+
+
+
+
+
+
 class UserProfileListView(generic.ListView):
 	model=UserProfile
 
@@ -79,11 +131,6 @@ def register(request):
 		form=RegistrationForm()
 		args = {'form':form}
 	return render(request,'reg_form.html', {'form':form})
-
-
-
-
-
 
 
 
@@ -107,12 +154,6 @@ def edit_profile(request):
 		form=EditProfileForm(instance=request.user)
 		args={'forms':form}
 		return render(request,'user_change.html', {'form':form})
-
-
-
-
-
-
 
 
 @login_required
@@ -145,8 +186,6 @@ class BlogCreateView(LoginRequiredMixin,generic.CreateView):
 		blog.author=UserProfile.objects.get(user=self.request.user)
 		blog.save()
 		return redirect('/')
-
-
 
 
 

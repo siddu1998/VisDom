@@ -9,7 +9,20 @@
 <script src="{% static 'js/base.js' %}"></script>
 
 
-<!--made by vipul mirajkar thevipulm.appspot.com-->
+
+
+
+<div class="row center">
+
+<div>
+<a class="btn btn-info " href="#">Follow!</a>
+</div>
+{% if userprofile.profile_image %}
+
+<img  width="200px" height="200px" src="{{ userprofile.profile_image.url }}">
+
+{% endif %}
+</div>
 <h1>
   <a href="" class="typewrite" data-period="2000" data-type='[ "Hi," , "I am {{ userprofile.first_name }}", "{{ userprofile.desciption }}", "Hope You are having fun on VisDom." ]'>
     <span class="wrap"></span>

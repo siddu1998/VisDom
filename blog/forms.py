@@ -45,7 +45,7 @@ class EditProfileForm(UserChangeForm):
 class EditUserProfileForm(forms.ModelForm):
     class Meta:
         model=UserProfile
-        fields=('first_name','last_name',"desciption",)
+        fields=('first_name' , 'last_name', "desciption", "profile_image" )
 
 class BlogForm(forms.ModelForm):
     publish=forms.DateField(widget=forms.SelectDateWidget)

@@ -14,9 +14,16 @@ urlpatterns = [
 	 url(r'^userlist/$', views.UserProfileListView.as_view(), name='user'),
 	 url(r'^Blog/(?P<pk>\d+)$', views.BlogDetailView.as_view(), name='blog-detail'),
 	 url(r'^user/(?P<pk>\d+)$', views.UserProfileDetailView.as_view(), name='user-detail'),
+	 
 	 url(r'^Blog/create$', views.BlogCreateView.as_view(), name='create'),
-	
 
+
+
+	 url(r'^shop/$', views.ItemListView.as_view(), name='shop'),
+	 url(r'^shop/(?P<pk>\d+)$', views.ItemDetailView.as_view(), name='item-detail'),
+	 url(r'^shop/(?P<pk>\d+)/cart/$', views.CartCreate.as_view(), name='cart-add'), 
+	 url(r'^shop/(?P<pk>\d+)/comment/$', views.ItemCommentCreate.as_view(), name='item-comment'), 
+	 
 
 	 
 
@@ -24,6 +31,10 @@ urlpatterns = [
 	 url(r'^Blog/delete/(?P<pk>\d+)$', views.BlogDelete.as_view(), name='delete'),
 	
 	 url(r'^Blog/(?P<pk>\d+)/comment/$', views.BlogCommentCreate.as_view(), name='blog-comment'), 
+
+
+
+	 
 	 #user-shit
 	 url(r'^register/$', views.register, name='register'),
 	 url(r'^profile/$', views.profile, name='profile'),
